@@ -120,6 +120,7 @@ To do!
 - (Optional) Install [RStudio](https://www.rstudio.com/products/rstudio/download/).
 - Install the [plumber](https://www.rplumber.io/) package:
 	- Launch R from the command line by typing `R` (or launch RStudio), and at the prompt, install  *plumber* package by typing `install.packages('plumber')`.
+		- Installing plumber requires libsodium-dev in several linux platforms (e.g. Ubuntu). If you receive the following error: `ERROR: dependency ‘sodium’ is not available for package ‘plumber’`, then, in a bash shell, do: `sudo apt-get install libsodium-dev`, then re-install plumber in R.
 - Now you can set up a test endpoint. Here is an example:
 	```R
 	# In a file such as 'test.R'
@@ -180,7 +181,7 @@ $.ajax({
 
 ## Deploying Remote Server
 
-These instructions apply to linx-based servers - in particular, distributions such as Ubuntu or Debian. Instructions for other operating systems will differ slightly, but essentially just involve setting up a web server for the frontend and R for the backend on the remote server. Ensure you have root or sudo access on your server.
+These instructions apply to linux-based servers - in particular, distributions such as Ubuntu or Debian. Instructions for other operating systems will differ slightly, but essentially just involve setting up a web server for the frontend and R for the backend on the remote server. Ensure you have root or sudo access on your server.
 
 ### Running the R Model
 
@@ -192,7 +193,7 @@ This is the first step to productionalizing - you should be able to access the R
 
 ### Creating an Friendly API
 For production applications, you generally want to supply a full domain name that can be accessed. The approach here will involve using an HTTP server such as nginx, which will listen for requests to a certain endpoint and forward them to your R model (usually referred to as 'reverse proxying').
-- SSH into the remote server and install nginx (`sudo apt get install nginx`)
+- SSH into the remote server and install nginx (`sudo apt-get install nginx`)
 - Enable and start nginx using `sudo systemctl enable nginx && sudo systemctl start nginx`
 - If there is a firewall installed on the server, ensure that ports 80 and 443 are open
 	- A commonly used program is UFW, which allows you to simply run `sudo ufw allow http && sudo ufw allow https && sudo ufw reload`
